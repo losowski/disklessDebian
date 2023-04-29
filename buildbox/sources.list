@@ -1,0 +1,21 @@
+# Sources list
+deb http://mirrors.coreix.net/debian/ bullseye main non-free contrib
+
+# deb http://ftp.gb.debian.org/debian/ bullseye/updates main non-free contrib
+
+deb http://deb.debian.org/debian bullseye main contrib non-free
+# deb-src http://deb.debian.org/debian bullseye main contrib non-free
+
+deb http://deb.debian.org/debian-security/ bullseye/updates main contrib non-free
+# deb-src http://deb.debian.org/debian-security/ bullseye/updates main contrib non-free
+
+#Backports
+# deb http://deb.debian.org/debian bullseye-backports main contrib non-free
+# deb-src http://deb.debian.org/debian bullseye-backports main contrib non-free
+
+deb http://deb.debian.org/debian bullseye-updates main contrib non-free
+# deb-src http://deb.debian.org/debian bullseye-updates main contrib non-free
+
+# bullseye-updates, previously known as 'volatile'
+deb http://mirrors.coreix.net/debian/ bullseye-updates main contrib
+# deb-src http://ftp.uk.debian.org/debian bullseye main contrib non-free
