@@ -15,13 +15,13 @@ README
 # REQUIREMENTS:
 * A buildbox:
 	** Debian installation this will be based off
-* Service running:
+* Services running:
 	** NTP
 	** TFTPD
 	** DHCPD
 	** DNS
 	** NFS
-	** iSCSID
+
 
 # GENERAL PROCESS
 ## Hardware Setup
@@ -54,6 +54,7 @@ README
 3) Clear down to the essential files
 
 ## Building Bootable Image
+	# This needs the NFS device running - otherwise you need to copy this build directory
 
 ## Publish the image for booting
 1) Push to the TFTPD box
