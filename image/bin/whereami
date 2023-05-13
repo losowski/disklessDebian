@@ -1,0 +1,18 @@
+#!/bin/bash
+#finds node’s hostname based on matching IP in DNS
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+# default device for gateway
+GWDEV=‘ip route show default |cut -f 5 -d "␣"‘
+# get IP address
+MYIP=(‘ip address show label ${GWDEV} | tr ’/’ ’␣’‘)
+MYIP=${MYIP[1]}
+# test if MYIP exist in DNS
+host $MYIP > /dev/null
+status=$?
+if [ $status -ne 0 ]; then
+MYHOSTNAME="undefined-hostname"
+else
+MYHOSTNAME=‘host $MYIP | \
+sed -e ’s/.*domain␣name␣pointer␣\([a-zA-Z0-9-]*\).*/\1/g’‘
+fi
+echo $MYHOSTNAME
