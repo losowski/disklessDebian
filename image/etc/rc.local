@@ -1,0 +1,5 @@
+#!/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+# set hostname
+hostname ‘/bin/whereami‘
+exit 0

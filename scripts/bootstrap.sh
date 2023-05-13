@@ -18,9 +18,44 @@ apt update
 apt -y install bind9-host locales
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
+exit #exit chroot
 
 # See: image/bin/whereami
+# See: image/etc/rc.local
 
+# Install NFS
+chroot $BUILDROOTIMAGE /bin/bash
+apt -y install nfs-common
+exit #exit chmod
+
+# Setup: image/etc/fstab
+cp templates/fstab $BUILDROOTIMAGE/etc/fstab
+# NOTE: Append nfsserver line
+# TODO: Add build script to correctly setup the nfsserver line for build
+# sed -i "s/nfsserver:NFSHOMEPATH/nfsserver:BLAH/g' $BUILDROOTIMAGE/etc/fstab
+
+
+# Setup: image/etc/mtab
+# A symlink as this is replaced in the initrd
+ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
+
+
+# Configure root user
+chroot $BUILDROOTIMAGE /bin/bash
+passwd root
+mv /root /home/root
+usermod -d /home/root root
+
+exit #exit chroot
+
+# Build a PXE initrd
+chroot $BUILDROOTIMAGE /bin/bash
+# apt update
+# apt -y install linux-image-amd64 firmware-linux \
+firmware-realtek firmware-bnx2
+# exit
+
+# exit the 
 
 
 # Setup the directories
