@@ -1,4 +1,8 @@
 README
+======
+# RESOURCES:
+* https://www.iram.fr/~blanchet/tutorials/read-only_diskless_debian10.pdf
+* https://wiki.debian.org/PXEBootDisklessSystem
 
 # OBJECTIVE:
 * Use a debian base image
