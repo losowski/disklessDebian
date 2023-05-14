@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 # https://wiki.debian.org/Debootstrap
+# Requires running as sudo
 
 # Import shell
 source exports.sh
@@ -8,12 +9,16 @@ source exports.sh
 BUILDVERSION=$(cat /etc/os-release | grep "VERSION_CODENAME" | cut -d '=' -f 2)
 
 # Bootstrap
-debootstrap $BUILDVERSION $BUILDROOTIMAGE http://deb.debian.org/debian/
+sudo debootstrap $BUILDVERSION $BUILDROOTIMAGE http://deb.debian.org/debian/
+# $BUILDROOTIMAGE/debootstrap/debootstrap.log
+# Check logs at
 
-# See: image/etc/sources.list
+# See: image/etc/apt/sources.list
+# NOTE: /etc/apt/sources.list gets overwritten by above
+cp templates/sources.list $BUILDROOTIMAGE/etc/apt/sources.list
 
 # Configure hostnames
-chroot $BUILDROOTIMAGE /bin/bash
+sudo chroot $BUILDROOTIMAGE /bin/bash
 apt update
 apt -y install bind9-host locales
 locale-gen en_US.UTF-8
@@ -24,7 +29,7 @@ exit #exit chroot
 # See: image/etc/rc.local
 
 # Install NFS
-chroot $BUILDROOTIMAGE /bin/bash
+sudo chroot $BUILDROOTIMAGE /bin/bash
 apt -y install nfs-common
 exit #exit chmod
 
@@ -41,7 +46,7 @@ ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
 
 
 # Configure root user
-chroot $BUILDROOTIMAGE /bin/bash
+sudo chroot $BUILDROOTIMAGE /bin/bash
 passwd root
 mv /root /home/root
 usermod -d /home/root root
@@ -49,7 +54,7 @@ usermod -d /home/root root
 exit #exit chroot
 
 # Build a PXE initrd
-chroot $BUILDROOTIMAGE /bin/bash
+sudo chroot $BUILDROOTIMAGE /bin/bash
 # apt update
 # apt -y install linux-image-amd64 firmware-linux \
 firmware-realtek firmware-bnx2
