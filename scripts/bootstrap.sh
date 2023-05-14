@@ -15,35 +15,30 @@ sudo debootstrap $BUILDVERSION $BUILDROOTIMAGE http://deb.debian.org/debian/
 
 # See: image/etc/apt/sources.list
 # NOTE: /etc/apt/sources.list gets overwritten by above
-cp templates/sources.list $BUILDROOTIMAGE/etc/apt/sources.list
+sudo cp $BUILDROOTIMAGE/../templates/sources.list $BUILDROOTIMAGE/etc/apt/sources.list
 
-# Configure hostnames
 sudo chroot $BUILDROOTIMAGE /bin/bash
 apt update
+# Configure hostnames
 apt -y install bind9-host locales
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
+# Install NFS
+apt -y install nfs-common
 exit #exit chroot
 
 # See: image/bin/whereami
 # See: image/etc/rc.local
 
-# Install NFS
-sudo chroot $BUILDROOTIMAGE /bin/bash
-apt -y install nfs-common
-exit #exit chmod
-
 # Setup: image/etc/fstab
-cp templates/fstab $BUILDROOTIMAGE/etc/fstab
+sudo cp $BUILDROOTIMAGE/../templates/fstab $BUILDROOTIMAGE/etc/fstab
 # NOTE: Append nfsserver line
 # TODO: Add build script to correctly setup the nfsserver line for build
-# sed -i "s/nfsserver:NFSHOMEPATH/nfsserver:BLAH/g' $BUILDROOTIMAGE/etc/fstab
-
+# sudo sed -i "s/nfsserver:NFSHOMEPATH/nfsserver:BLAH/g' $BUILDROOTIMAGE/etc/fstab
 
 # Setup: image/etc/mtab
 # A symlink as this is replaced in the initrd
-ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
-
+sudo ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
 
 # Configure root user
 sudo chroot $BUILDROOTIMAGE /bin/bash
