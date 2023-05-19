@@ -22,6 +22,7 @@ apt update
 # Configure hostnames
 apt -y install bind9-host locales
 locale-gen en_US.UTF-8
+ # Has interactive menu
 dpkg-reconfigure locales
 # Install NFS
 apt -y install nfs-common
@@ -44,29 +45,32 @@ sudo ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
 sudo chroot $BUILDROOTIMAGE /bin/bash
 passwd root
 usermod -d /root root
-
 exit #exit chroot
 
 # Build a PXE initrd
 sudo chroot $BUILDROOTIMAGE /bin/bash
-# apt update
-# apt -y install linux-image-amd64 firmware-linux \
-firmware-realtek firmware-bnx2
-# exit
+apt update
+#apt -y install linux-image-amd64 firmware-linux-free # Default
+apt -y install linux-image-cloud-amd64 # For Virtual machines only
+exit #exit chroot
 
-# exit the 
+# Copy initramfs.conf
+sudo cp $BUILDROOTIMAGE/../templates/initramfs.conf $BUILDROOTIMAGE/etc/initramfs-tools/initramfs.conf
+
+# Actually build the initramfs
+sudo chroot $BUILDROOTIMAGE /bin/bash
+update-initramfs -u
+exit #exit chroot
+
+#NOTE: Built files:
+ls $BUILDROOTIMAGE/bin/initrd.img*
+ls $BUILDROOTIMAGE/bin/vmlinuz*
+
+# Setup RAMDisk for temporary files
+sudo chroot $BUILDROOTIMAGE /bin/bash
+echo ASYNCMOUNTNFS=no >> /etc/default/rcS
+echo RAMTMP=yes >> /etc/default/tmpfs
+exit
 
 
-# Setup the directories
-#echo "proc $BUILDROOTIMAGE/proc proc defaults 0 0" >> /etc/fstab
-#mount proc $BUILDROOTIMAGE/proc -t proc
-#echo "sysfs $BUILDROOTIMAGE/sys sysfs defaults 0 0" >> /etc/fstab
-#mount sysfs $BUILDROOTIMAGE/sys -t sysfs
-#cp /etc/hosts $BUILDROOTIMAGE/etc/hosts
-#cat /proc/mounts | sed 's/^\/dev.*//g' | sed 's/\n\n//g' > $BUILDROOTIMAGE/etc/mtab
-
-# dselect
-
-# Add tar step to compress this build
-
-
+# TODO: Add tar step to compress this build
