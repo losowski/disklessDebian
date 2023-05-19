@@ -43,8 +43,7 @@ sudo ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
 # Configure root user
 sudo chroot $BUILDROOTIMAGE /bin/bash
 passwd root
-mv /root /home/root
-usermod -d /home/root root
+usermod -d /root root
 
 exit #exit chroot
 
