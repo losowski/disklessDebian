@@ -42,6 +42,8 @@ sudo cp $BUILDROOTIMAGE/../templates/fstab $BUILDROOTIMAGE/etc/fstab
 sudo ln -s /proc/mounts $BUILDROOTIMAGE/etc/mtab
 
 # Configure root user
+# Note: same process needs application for all users
+#		Especially true if running the root OS as UnionFS
 sudo chroot $BUILDROOTIMAGE /bin/bash
 passwd root
 usermod -d /root root
