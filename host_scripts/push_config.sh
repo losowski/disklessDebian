@@ -6,10 +6,8 @@
 # TODO: Perform service restarts too
 
 # == nftables setup ==
-
-
+#	TODO: Set Subnet mask for the allowed networks (should only be internal)
 #	TODO: Copy the config over to the host (host/etc/nftables.conf)
-
 
 # == DHCPD server ==
 # TODO: Set the interface to use for the DHCP server via host/etc/default/isc-dhcp-server
