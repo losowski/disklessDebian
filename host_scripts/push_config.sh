@@ -4,19 +4,41 @@
 # TODO: Implement this via rsync
 # TODO: use configuration files from "host" directory (should be in same directory tree)
 # TODO: Perform service restarts too
-# nftables Setup
-# Chose the subnet setup
-# Copy the config over to the host
 
-# DHCPD server
-# DNS Server
+# == nftables setup ==
 
-# TFTP
-# Create the home directories
-# Apply the config
-# Restart the services
+
+#	TODO: Copy the config over to the host (host/etc/nftables.conf)
+
+
+# == DHCPD server ==
+# TODO: Set the interface to use for the DHCP server via host/etc/default/isc-dhcp-server
+# Chose the subnet setup 192.168.124.x/24
+#	TODO: host/etc/dhcp/dhcpd.conf
+#	TODO: Setup group naming
+#	TODO: Setup default netboot offering
+#	TODO: Set config on the host server
+# Enable and restart
+systemctl enable isc-dhcp-server
+systemctl restart isc-dhcp-server
+
+# == DNS Server ==
+#	TODO: Setup the bind9 config
+#	TODO: Setup the rndc service to be the default DNS for this subnet
+systemctl enable bind9
+systemctl restart bind9
+
+# == TFTP ==
+# TODO: Create the home directories
+# TODO: Create a home directory "/home/tftp"
+# TODO: Apply the config
+# Enable and restart
 systemctl enable tftpd-hpa
 systemctl restart tftpd-hpa
 
-# NFS Server restart
+# == NFS Server ==
+# TODO: Create a bootable environment
+# TODO: Create the home directory under "/home/nfs"
+# Enable and restart
+systemctl enable nfs-server
 systemctl restart nfs-server
