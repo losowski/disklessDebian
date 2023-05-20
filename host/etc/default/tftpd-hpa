@@ -1,0 +1,2 @@
+TFTP_DIRECTORY="/home/tftpd"
+TFTP_OPTIONS="--secure --create"
