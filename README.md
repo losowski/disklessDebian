@@ -26,7 +26,7 @@ README
 # REQUIREMENTS:
 * A buildbox:
 	** Debian installation this will be based off
-* DHCP Box
+* router Box
 	** DHCPD
 	** DNS
 	** Also performs routing
