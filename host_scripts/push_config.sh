@@ -5,6 +5,7 @@
 # TODO: use configuration files from "host" directory (should be in same directory tree)
 # TODO: Perform service restarts too
 
+
 # == nftables setup ==
 #	TODO: Set Subnet mask for the allowed networks (should only be internal)
 #	TODO: Copy the config over to the host (host/etc/nftables.conf)

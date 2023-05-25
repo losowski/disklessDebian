@@ -16,14 +16,23 @@ README
 	- tmpfs for /tmp
 	- Only configuration needed is the dhcpd configuration to setup a new (identical) host
 
+# PREREQUISITES
+* libvirt
+## Virtual Machine settings
+* Secondary network besides default
+
+
+
 # REQUIREMENTS:
 * A buildbox:
 	** Debian installation this will be based off
-* Services running:
-	** NTP
-	** TFTPD
+* DHCP Box
 	** DHCPD
 	** DNS
+	** Also performs routing
+* Host running Services:
+	** NTP
+	** TFTPD
 	** NFS
 
 
