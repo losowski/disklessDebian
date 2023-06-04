@@ -30,6 +30,8 @@ systemctl restart bind9
 # == TFTP ==
 # TODO: Create the home directories
 # TODO: Create a home directory "/home/tftp"
+mkdir /home/tftp
+useradd -d /home/tftp tftp
 # TODO: Apply the config
 # Enable and restart
 systemctl enable tftpd-hpa
@@ -38,6 +40,8 @@ systemctl restart tftpd-hpa
 # == NFS Server ==
 # TODO: Create a bootable environment
 # TODO: Create the home directory under "/home/nfs"
+mkdir /home/nfs
+useradd -d /home/nfs nfs
 # Enable and restart
 systemctl enable nfs-server
 systemctl restart nfs-server
