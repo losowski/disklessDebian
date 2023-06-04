@@ -1,2 +1,8 @@
 # https://manpages.debian.org/bullseye/nfs-kernel-server/exports.5.en.html
-#TODO - Add configuration
+
+# root filesystems
+#	simple-client is base-image only
+/home/nfs/simple-client/root 192.168.124.0/24 (ro,no_root_squash)
+
+# Home directory
+/home/nfs/home 192.168.124.0/24 (rw,no_root_squash)
