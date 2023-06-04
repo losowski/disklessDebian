@@ -31,7 +31,8 @@ systemctl restart bind9
 # TODO: Create the home directories
 # TODO: Create a home directory "/home/tftp"
 mkdir /home/tftp
-useradd -d /home/tftp tftp
+# useradd -d /home/tftp tftp # Already exists
+usermod -d /home/tftp tftp
 # TODO: Apply the config
 # Enable and restart
 systemctl enable tftpd-hpa
