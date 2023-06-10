@@ -33,6 +33,7 @@ systemctl restart bind9
 mkdir /home/tftp
 # useradd -d /home/tftp tftp # Already exists
 usermod -d /home/tftp tftp
+
 # TODO: Apply the config
 # Enable and restart
 systemctl enable tftpd-hpa
@@ -41,8 +42,10 @@ systemctl restart tftpd-hpa
 # == NFS Server ==
 # TODO: Create a bootable environment
 # TODO: Create the home directory under "/home/nfs"
-mkdir /home/nfs
 useradd -d /home/nfs nfs
+sudo su - nfs
+mkdir -p /home/nfs/home
+mkdir -p /home/nfs/simple-client/root
 # Enable and restart
 systemctl enable nfs-server
 systemctl restart nfs-server
