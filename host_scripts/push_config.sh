@@ -19,6 +19,7 @@ sudo /sbin/nft -f /etc/nftables.conf
 #	Setup default netboot offering
 #	Set config on the host server
 #	TODO: Fix the dhcpd.conf config
+sudo cp etc/default/isc-dhcp-server /etc/default/isc-dhcp-server
 sudo cp etc/dhcp/dhcpd.conf  /etc/dhcp/dhcpd.conf
 # Enable and restart
 sudo systemctl enable isc-dhcp-server
