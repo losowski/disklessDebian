@@ -18,9 +18,11 @@ sudo /sbin/nft -f /etc/nftables.conf
 #	Setup group naming
 #	Setup default netboot offering
 #	Set config on the host server
-#	TODO: Fix the dhcpd.conf config
 sudo cp etc/default/isc-dhcp-server /etc/default/isc-dhcp-server
 sudo cp etc/dhcp/dhcpd.conf  /etc/dhcp/dhcpd.conf
+# Set the subnet on the interface
+sudo cp etc/network/interfaces.d/virbr1 /etc/network/interfaces.d/virbr1
+sudo systemctl restart networking
 # Enable and restart
 sudo systemctl enable isc-dhcp-server
 sudo systemctl restart isc-dhcp-server
