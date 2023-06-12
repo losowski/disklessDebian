@@ -50,6 +50,8 @@ sudo useradd -d /home/nfs nfs
 sudo su - nfs
 mkdir -p /home/nfs/home
 mkdir -p /home/nfs/simple-client/root
+# Apply the config
+sudo cp etc/default/nfs-common /etc/default/nfs-common
 # Enable and restart
 sudo systemctl enable nfs-server
 sudo systemctl restart nfs-server
