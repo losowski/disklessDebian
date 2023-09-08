@@ -1,0 +1,5 @@
+TODO:
+1) Boot with correct init script selected (DONE)
+2) Change /etc/fstab for home NFS drive
+3) Setup DNS service
+4) Change all services to use DNS names

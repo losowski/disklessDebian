@@ -52,9 +52,23 @@ sudo systemctl restart tftpd-hpa
 sudo useradd -d /home/nfs nfs
 sudo su - nfs
 mkdir -p /home/nfs/home
-mkdir -p /home/nfs/simple-client/root
+mkdir -p /home/nfs/basic/root
 # Apply the config
 sudo cp etc/default/nfs-common /etc/default/nfs-common
 # Enable and restart
 sudo systemctl enable nfs-server
 sudo systemctl restart nfs-server
+
+# SETUP THE NFS Image
+# Rsync image to /home/nfs/basic/root
+sudo rsync -av ../image/ /home/nfs/basic/root/
+
+# BUILD IPXE
+# Run the script to build the ipxe builds (basic)
+$PWD/build_ipxe.sh
+# Rsync the host/home/tftp directory
+sudo rsync -av ../host/home/tftp/ /home/tftp/
+# Rsync the images/boot to /home/tftp/basic/
+sudo rsync -av ../image/boot/ /home/tftp/basic/
+
+# BOOM! Read to boot

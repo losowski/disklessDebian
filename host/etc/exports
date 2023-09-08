@@ -1,8 +1,8 @@
 # https://manpages.debian.org/bullseye/nfs-kernel-server/exports.5.en.html
 
 # root filesystems
-#	simple-client is base-image only
-/home/nfs/simple-client/root 192.168.124.0/24 (ro,no_root_squash)
+#	basic is for base image only (allow all hosts)
+/home/nfs/basic/root	*(ro,sync,subtree_check,no_root_squash)
 
 # Home directory
-/home/nfs/home 192.168.124.0/24 (rw,no_root_squash)
+/home/nfs/home	*.netboot(rw,sync,subtree_check,no_root_squash)

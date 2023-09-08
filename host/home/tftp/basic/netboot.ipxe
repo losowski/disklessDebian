@@ -1,0 +1,7 @@
+#!ipxe
+# IPXE Netboot configuration for build: basic
+# REMEMBER: All references are relative to this script!
+# Linux version 5.10.0
+initrd initrd.img-5.10.0-22-cloud-amd64
+chain vmlinuz-5.10.0-22-cloud-amd64 root=/dev/nfs ro nfsroot=192.168.124.1:/home/nfs/basic/root ip=dhcp
+boot

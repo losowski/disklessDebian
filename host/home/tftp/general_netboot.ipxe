@@ -1,0 +1,14 @@
+#!ipxe
+# Main Menu Booting
+default menu.c32
+prompt 0
+menu title pc-client
+ontimeout linux-5.18.0-2-amd64
+timeout 15
+
+label linux-5.18.0-2-amd64
+	menu label linux-5.18.0-2-amd64 basic
+		kernel vmlinuz-5.18.0-2-amd64
+		append root=/dev/nfs initrd=initrd.img-5.18.0-2-amd64 \
+		nfsroot=nfsserver:/home/nfs/basic/root ro panic=60 \
+		ipv6.disable=1 ip=:::::eno1
