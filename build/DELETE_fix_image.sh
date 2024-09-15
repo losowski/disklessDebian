@@ -1,9 +1,6 @@
 #!/bin/bash
 # Script to correct the symbolic links for using this image over NFS
 
-# Import shell
-source exports.sh
-
 # Fix the symbolic links on a particular file
 # 1 - File to process
 fixSingleFileSymbolicLinks () {

@@ -1,0 +1,9 @@
+Getting Debian Image
+====================
+
+REQUIREMENTS:
+- ISO compatible image to be copied into a directory
+- Full imgage for QEMU/libvirt virtual box
+
+URL:
+	https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-nocloud-amd64.raw

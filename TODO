@@ -3,3 +3,7 @@ TODO:
 2) Change /etc/fstab for home NFS drive
 3) Setup DNS service
 4) Change all services to use DNS names
+5) Setup UnionFS for /tmp drive
+6) Harden the OS to be read only (reliant on unionfs)
+7) Configure default to run a standard image via netboot
+8) unionfs for hostname specific NFS drive access

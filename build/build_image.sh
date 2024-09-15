@@ -2,10 +2,6 @@
 # https://wiki.debian.org/Debootstrap
 # Requires running as sudo
 
-# Import shell
-source exports.sh
-
-
 # Check we are configured else exit
 echo $BUILDVERSION
 if [ $(echo $BUILDVERSION) ]; then
@@ -27,9 +23,17 @@ fi
 sudo debootstrap --no-merged-usr $BUILDVERSION $BUILDROOTIMAGE http://deb.debian.org/debian/
 # Check logs at $BUILDROOTIMAGE/debootstrap/debootstrap.log
 
+# Clear the /etc/hostname
+# Required for correctly setting details via DHCP
+echo "" > $BUILDROOTIMAGE/etc/hostname
+
 # Store the archive
-sudo tar -cvf $(echo "../cache/debian_"$BUILDVERSION"_image.tar") $BUILDROOTIMAGE
-#TODO: Add a cache
+if [ -f ../cache/debian_"$BUILDVERSION"_image.tar ]; then
+	echo "Cached build exists"
+	exit
+else
+	sudo tar -cvf $(echo "../cache/debian_"$BUILDVERSION"_image.tar") $BUILDROOTIMAGE
+fi
 
 
 # Add a dummy file to the image to indicate origin
@@ -38,7 +42,7 @@ echo "NFS basic $BUILDVERSION" | tee $BUILDROOTIMAGE/etc/nfs_version
 
 # See: image/etc/apt/sources.list
 # NOTE: /etc/apt/sources.list gets overwritten by above
-sudo cp $BUILDROOTIMAGE/../templates/etc/apt/sources.list $BUILDROOTIMAGE/etc/apt/sources.list
+sudo cp $BUILDTEMPLATE/etc/apt/sources.list $BUILDROOTIMAGE/etc/apt/sources.list
 
 sudo chroot $BUILDROOTIMAGE /bin/bash
 apt update
@@ -55,7 +59,7 @@ exit #exit chroot
 # See: image/etc/rc.local
 
 # Setup: image/etc/fstab
-sudo cp $BUILDROOTIMAGE/../templates/etc/fstab $BUILDROOTIMAGE/etc/fstab
+sudo cp $BUILDTEMPLATE/etc/fstab $BUILDROOTIMAGE/etc/fstab
 # NOTE: Append nfsserver line
 # TODO: Add build script to correctly setup the nfsserver line for build
 # sudo sed -i "s/nfsserver:NFSHOMEPATH/nfsserver:BLAH/g' $BUILDROOTIMAGE/etc/fstab
@@ -77,14 +81,15 @@ sudo chroot $BUILDROOTIMAGE /bin/bash
 apt update
 #apt -y install linux-image-amd64 firmware-linux-free # Default
 apt -y install linux-image-cloud-amd64 # For Virtual machines only
+apt -y install systemd init xz-utils
 exit #exit chroot
 
 # Copy initramfs.conf
-sudo cp $BUILDROOTIMAGE/../templates/etc/initramfs-tools/initramfs.conf $BUILDROOTIMAGE/etc/initramfs-tools/initramfs.conf
+sudo cp $BUILDTEMPLATE/etc/initramfs-tools/initramfs.conf $BUILDROOTIMAGE/etc/initramfs-tools/initramfs.conf
 
 # Actually build the initramfs
 sudo chroot $BUILDROOTIMAGE /bin/bash
-update-initramfs -u
+update-initramfs -vu
 exit #exit chroot
 
 #NOTE: Built files:
@@ -97,9 +102,11 @@ echo ASYNCMOUNTNFS=no >> /etc/default/rcS
 echo RAMTMP=yes >> /etc/default/tmpfs
 exit
 
-# TODO: Add tar step to compress this build
 
-# setup /sbin/init
-# - systemd is for the actual binary
-# - init is for the init script
-apt -y install systemd init
+# TODO: Add tar step to compress this build
+if [ -f ../cache/debian_"$BUILDVERSION"_image.tar ]; then
+	echo "Cached build exists"
+else
+	sudo tar -cvf $(echo "../cache/debian_"$BUILDVERSION"_image.tar") $BUILDROOTIMAGE
+fi
+
