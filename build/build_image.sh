@@ -18,6 +18,8 @@ else
 	exit
 fi
 
+# TODO: Change the image/home path to the /VMs/nfs/home path
+
 #TODO: Check against cache before running this
 # Bootstrap
 sudo debootstrap --no-merged-usr $BUILDVERSION $BUILDROOTIMAGE http://deb.debian.org/debian/
@@ -101,6 +103,8 @@ sudo chroot $BUILDROOTIMAGE /bin/bash
 echo ASYNCMOUNTNFS=no >> /etc/default/rcS
 echo RAMTMP=yes >> /etc/default/tmpfs
 exit
+
+
 
 
 # TODO: Add tar step to compress this build
