@@ -1,9 +1,15 @@
 TODO:
-1) Boot with correct init script selected (DONE)
-2) Change /etc/fstab for home NFS drive
-3) Setup DNS service
-4) Change all services to use DNS names
-5) Setup UnionFS for /tmp drive
-6) Harden the OS to be read only (reliant on unionfs)
-7) Configure default to run a standard image via netboot
-8) unionfs for hostname specific NFS drive access
+-) Build script split to run in chroot
+-) Setup DNS service
+-) Change all services to use DNS names
+-) Setup UnionFS for /tmp drive
+-) Harden the OS to be read only (reliant on unionfs)
+-) Configure default to run a standard image via netboot
+-) unionfs for hostname specific NFS drive access
+
+PENDING:
+
+
+DONE:
+-) Boot with correct init script selected
+-) Change /etc/fstab for home NFS drive
