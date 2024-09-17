@@ -19,7 +19,7 @@ none	/media	tmpfs	defaults	0	0
 # NFS root
 /dev/nfs	/	nfs	tcp,nolock	0	0
 # NFS Home
-192.168.124.1:/home/nfs/home	/home	nfs4	tcp,nolock	0	0
+192.168.124.1:/VMs/nfs/home	/home	nfs4	tcp,nolock	0	0
 
 
 
