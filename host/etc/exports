@@ -2,7 +2,7 @@
 
 # root filesystems
 #	basic is for base image only (allow all hosts)
-/VMs/nfs/debian12-base	*(ro,sync,subtree_check,no_root_squash)
+/VMs/nfs/debian12-base	*(ro,sync,subtree_check,all_squash)
 
 # Home directory
 /VMs/nfs/home	*.netboot(rw,sync,subtree_check,no_root_squash)

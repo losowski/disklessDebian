@@ -5,10 +5,11 @@
 sudo mkdir -p /VMs/nfs
 sudo useradd -d /VMs/nfs nfs
 # Create sub-directories
-sudo su - nfs
 sudo mkdir -p /VMs/nfs/home
+chown nfs /VMs/nfs/home
 # Apply the config
-sudo cp ../host/etc/default/nfs-common /etc/default/nfs-common
+sudo cp -v $HOSTFILES/etc/exports /etc/exports
+sudo cp -v $HOSTFILES/etc/default/nfs-common /etc/default/nfs-common
 # Enable and restart
 sudo systemctl enable nfs-server
 sudo systemctl restart nfs-server

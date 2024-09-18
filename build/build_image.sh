@@ -58,8 +58,12 @@ sudo cp $BUILDTEMPLATE/etc/initramfs-tools/initramfs.conf $BUILDROOTIMAGE/etc/in
 # Copy chroot scripts to the image /root folder
 sudo rsync -av ./chroot/ $BUILDROOTIMAGE/root
 
-# Run Scripts
+# Build image
 sudo chroot $BUILDROOTIMAGE /root/setup_image.sh
+
+# Build initramfs
+sudo chroot $BUILDROOTIMAGE /root/build_initramfs.sh
+
 
 #NOTE: Built files:
 ls $BUILDROOTIMAGE/boot/initrd.img*

@@ -34,15 +34,3 @@ echo RAMTMP=yes >> /etc/default/tmpfs
 #apt -y install linux-image-amd64 firmware-linux-free # Default
 apt -y install linux-image-cloud-amd64 # For Virtual machines only
 apt -y install systemd init xz-utils
-
-
-# Actually build the initramfs
-update-initramfs -vu
-
-#NOTE: Built files:
-ls /boot/initrd.img*
-ls /boot/vmlinuz*
-
-
-
-
